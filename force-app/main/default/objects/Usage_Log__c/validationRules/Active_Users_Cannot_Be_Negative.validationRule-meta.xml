@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Active_Users_Cannot_Be_Negative</fullName>
+    <active>true</active>
+    <description>Ensures that the number of active users cannot be a negative value.</description>
+    <errorConditionFormula>Active_Users__c &lt; 0</errorConditionFormula>
+    <errorDisplayField>Active_Users__c</errorDisplayField>
+    <errorMessage>The number of active users cannot be negative!</errorMessage>
+</ValidationRule>

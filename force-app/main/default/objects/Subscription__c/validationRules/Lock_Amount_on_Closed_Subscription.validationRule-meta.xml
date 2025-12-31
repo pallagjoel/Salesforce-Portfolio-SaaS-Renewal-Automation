@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Lock_Amount_on_Closed_Subscription</fullName>
+    <active>true</active>
+    <description>An expired subscription, can not be changed.</description>
+    <errorConditionFormula>AND (
+ Status__c =&quot;Expired&quot;,
+ ISCHANGED( Monthly_Amount__c ) 
+)</errorConditionFormula>
+    <errorDisplayField>Monthly_Amount__c</errorDisplayField>
+    <errorMessage>The monthly fee cannot be modified if the subscription is already closed or canceled!</errorMessage>
+</ValidationRule>

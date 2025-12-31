@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Data_Limit__c</fullName>
+    <description>This formula adds storage limits based on product tiers</description>
+    <externalId>false</externalId>
+    <formula>CASE( Product_Tier__c , 
+&quot;Basic&quot;, 10, 
+&quot;Professional&quot;, 50, 
+&quot;Enterprise&quot;, 200,
+0)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Data Limit (GB)</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Total_Storage_Consumption__c</fullName>
+    <description>Sum of all data storage recorded across all usage logs for this subscription. Essential for monitoring total volume consumption against plan limits.</description>
+    <inlineHelpText>Total gigabytes of storage used throughout the lifetime of this subscription.</inlineHelpText>
+    <label>Total Storage Consumption</label>
+    <summarizedField>Usage_Log__c.Storage_Used_GB__c</summarizedField>
+    <summaryForeignKey>Usage_Log__c.Subscription__c</summaryForeignKey>
+    <summaryOperation>sum</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>65.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <customErrors>
+        <description>This will not allow the subscription, to be saved.</description>
+        <name>Overlap_Error_Message</name>
+        <label>Overlap Error Message</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <customErrorMessages>
+            <errorMessage>Error: This customer already has an active subscription for the specified period. Recording overlapping subscriptions is not allowed!</errorMessage>
+            <fieldSelection>Start_Date__c</fieldSelection>
+            <isFieldError>true</isFieldError>
+        </customErrorMessages>
+    </customErrors>
+    <decisions>
+        <description>This decision checks I we found a subscription from the same account.</description>
+        <name>Was_Overlap_Found</name>
+        <label>Was Overlap Found?</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnectorLabel>No Overlap</defaultConnectorLabel>
+        <rules>
+            <name>Yes_Overlap_Found</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Overlapping_Subscriptions.Id</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Overlap_Error_Message</targetReference>
+            </connector>
+            <label>Yes, Overlap Found</label>
+        </rules>
+    </decisions>
+    <description>This flow, checks if the new subssription overlaps any of the existing ones on the same account.</description>
+    <environments>Default</environments>
+    <interviewLabel>Subscription: Overlap Checker {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Subscription: Overlap Checker</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <description>This will get all the existing subscriptions.</description>
+        <name>Get_Overlapping_Subscriptions</name>
+        <label>Get Overlapping Subscriptions</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Was_Overlap_Found</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Account__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Account__c</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Id</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Status__c</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <stringValue>Expired</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Start_Date__c</field>
+            <operator>LessThan</operator>
+            <value>
+                <elementReference>$Record.End_Date__c</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>End_Date__c</field>
+            <operator>GreaterThanOrEqualTo</operator>
+            <value>
+                <elementReference>$Record.Start_Date__c</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Subscription__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <start>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Get_Overlapping_Subscriptions</targetReference>
+        </connector>
+        <object>Subscription__c</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

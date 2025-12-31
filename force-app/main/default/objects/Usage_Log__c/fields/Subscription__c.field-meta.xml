@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Subscription__c</fullName>
+    <description>Master-Detail relationship linking usage data to its parent subscription. Ensures data integrity through cascade delete and enables roll-up summary fields on the Subscription object.</description>
+    <inlineHelpText>Select the subscription that this usage log belongs to.</inlineHelpText>
+    <label>Subscription</label>
+    <referenceTo>Subscription__c</referenceTo>
+    <relationshipLabel>Usage Logs</relationshipLabel>
+    <relationshipName>Usage_Logs</relationshipName>
+    <relationshipOrder>0</relationshipOrder>
+    <reparentableMasterDetail>false</reparentableMasterDetail>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+</CustomField>

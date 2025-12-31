@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Usage_Date_Within_Subscription_Period</fullName>
+    <active>true</active>
+    <description>Ensures that the usage log date is within the subscription validity period.</description>
+    <errorConditionFormula>Or (
+ Usage_Date__c &lt; Subscription__r.Start_Date__c,
+  Usage_Date__c &gt; Subscription__r.End_Date__c 
+)</errorConditionFormula>
+    <errorDisplayField>Usage_Date__c</errorDisplayField>
+    <errorMessage>The usage log date falls outside the subscription period (Start: {!Subscription__c.Start_Date__c}, End: {!Subscription__c.End_Date__c})!</errorMessage>
+</ValidationRule>

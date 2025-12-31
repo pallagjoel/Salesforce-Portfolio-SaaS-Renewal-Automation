@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Subscription_Minimum_One_Month</fullName>
+    <active>true</active>
+    <description>This will not allow new subscriptions, to be shorter, than 1 month.</description>
+    <errorConditionFormula>End_Date__c &lt;  ADDMONTHS( Start_Date__c ,1)</errorConditionFormula>
+    <errorDisplayField>End_Date__c</errorDisplayField>
+    <errorMessage>The subscription must be at least a month.</errorMessage>
+</ValidationRule>

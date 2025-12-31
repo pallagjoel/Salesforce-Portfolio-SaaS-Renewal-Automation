@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Status__c</fullName>
+    <description>Automated lifecycle status for the subscription. Calculates &apos;Expired&apos;, &apos;Expiring Soon&apos; (within 30 days), or &apos;Active&apos; based on the End Date without manual user intervention.</description>
+    <externalId>false</externalId>
+    <formula>IF( End_Date__c &lt; TODAY(), 
+    &quot;Expired&quot;, 
+    IF( End_Date__c - TODAY() &lt;= 30, 
+        &quot;Expiring Soon&quot;, 
+        &quot;Active&quot;
+    )
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Status</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

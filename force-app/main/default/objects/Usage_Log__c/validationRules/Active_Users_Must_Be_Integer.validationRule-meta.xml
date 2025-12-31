@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Active_Users_Must_Be_Integer</fullName>
+    <active>true</active>
+    <description>Users can not be decimal numbers.</description>
+    <errorConditionFormula>MOD( Active_Users__c ,1) &lt;&gt; 0</errorConditionFormula>
+    <errorDisplayField>Active_Users__c</errorDisplayField>
+    <errorMessage>Number can not be decimal!</errorMessage>
+</ValidationRule>

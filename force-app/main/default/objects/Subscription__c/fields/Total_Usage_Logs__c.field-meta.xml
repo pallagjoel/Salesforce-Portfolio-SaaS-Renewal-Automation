@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Total_Usage_Logs__c</fullName>
+    <description>Automatically calculates the total number of usage log entries associated with this subscription. This metric is used to monitor engagement consistency and ensures that usage data is being reported regularly. A low count relative to the subscription duration may indicate a tracking issue or low platform adoption.</description>
+    <inlineHelpText>The total number of daily usage logs recorded for this subscription.</inlineHelpText>
+    <label>Total Usage Logs</label>
+    <summaryForeignKey>Usage_Log__c.Subscription__c</summaryForeignKey>
+    <summaryOperation>count</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>
