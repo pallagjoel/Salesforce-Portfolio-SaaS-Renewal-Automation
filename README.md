@@ -112,4 +112,4 @@ The system transforms raw usage logs into a **strategic decision-support tool**.
 
 
 ---
-**Lead Architect:** [Pallag Joel](https://github.com/pallagjoel) | Salesforce Solutions Specialist & RevOps Strategist
+**Creator:** [Pallag Joel](https://github.com/pallagjoel) | Salesforce Administrator
