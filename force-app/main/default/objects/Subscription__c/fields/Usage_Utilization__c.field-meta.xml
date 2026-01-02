@@ -2,7 +2,10 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Usage_Utilization__c</fullName>
     <description>This formula shows the percentage, of allready used space by accounts</description>
-    <formula>Total_Storage_Consumption__c  /  Data_Limit__c</formula>
+    <formula>IF (TEXT(Product_Tier__c) = &quot;Enterprise&quot;,
+0,
+Total_Storage_Consumption__c  /  Data_Limit__c
+)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Usage Utilization</label>
     <precision>18</precision>

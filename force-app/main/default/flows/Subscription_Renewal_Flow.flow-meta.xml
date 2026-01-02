@@ -118,6 +118,13 @@
                     <numberValue>20.0</numberValue>
                 </rightValue>
             </conditions>
+            <conditions>
+                <leftValueReference>$Record.Product_Tier__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>Enterprise</stringValue>
+                </rightValue>
+            </conditions>
             <connector>
                 <targetReference>Create_Renewal_Opportunity_Path_A_2</targetReference>
             </connector>

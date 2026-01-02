@@ -6,7 +6,7 @@
     <formula>CASE( Product_Tier__c , 
 &quot;Basic&quot;, 10, 
 &quot;Professional&quot;, 50, 
-&quot;Enterprise&quot;, 200,
+&quot;Enterprise&quot;, 999999999999999999999999999999999999,
 0)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Data Limit (GB)</label>

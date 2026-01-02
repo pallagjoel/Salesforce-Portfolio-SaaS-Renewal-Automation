@@ -8,5 +8,5 @@
   Usage_Date__c &gt; Subscription__r.End_Date__c 
 )</errorConditionFormula>
     <errorDisplayField>Usage_Date__c</errorDisplayField>
-    <errorMessage>The usage log date falls outside the subscription period (Start: {!Subscription__c.Start_Date__c}, End: {!Subscription__c.End_Date__c})!</errorMessage>
+    <errorMessage>The usage log date falls outside the subscription period!</errorMessage>
 </ValidationRule>

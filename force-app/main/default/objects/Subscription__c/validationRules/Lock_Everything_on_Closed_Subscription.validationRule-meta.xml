@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Lock_Everything_on_Closed_Subscription</fullName>
+    <active>true</active>
+    <description>An expired subscription, can not be changed.</description>
+    <errorConditionFormula>Status__c =&quot;Expired&quot;</errorConditionFormula>
+    <errorMessage>The subscription is already expired! You can create new subscription if needed.</errorMessage>
+</ValidationRule>

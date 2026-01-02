@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Enforce_Subscription_Storage_Limit</fullName>
+    <active>true</active>
+    <description>This rule will not allow log saves after the limit is reached.</description>
+    <errorConditionFormula>AND(
+ Subscription__r.Usage_Utilization__c &gt;= 1,
+ Storage_Used_GB__c &gt;0
+)</errorConditionFormula>
+    <errorDisplayField>Storage_Used_GB__c</errorDisplayField>
+    <errorMessage>Data limit reached for this subscription level. Please delete existing data or upgrade your plan to Professional/Enterprise to add more logs.</errorMessage>
+</ValidationRule>
