@@ -1,0 +1,703 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <description>Sends a Chatter notification to the Subscription owner if the automatic renewal Opportunity creation fails. Includes the system fault message for troubleshooting.</description>
+        <name>Chatter_Path_0_Error_Opp_Creation_Failure</name>
+        <label>Chatter: Path 0 Error - Opp Creation Failure</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <actionName>chatterPost</actionName>
+        <actionType>chatterPost</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>text</name>
+            <value>
+                <elementReference>Renewal_Fault_Message</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>subjectNameOrId</name>
+            <value>
+                <elementReference>$Record.OwnerId</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>chatterPost</nameSegment>
+        <offset>0</offset>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </actionCalls>
+    <actionCalls>
+        <description>Sends a Chatter notification to the Subscription owner if the automatic renewal Opportunity creation fails. Includes the system fault message for troubleshooting.</description>
+        <name>Chatter_Path_A_2_Error_Opp_Creation_Failure</name>
+        <label>Chatter: Path A 2 Error - Opp Creation Failure</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <actionName>chatterPost</actionName>
+        <actionType>chatterPost</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>text</name>
+            <value>
+                <elementReference>Renewal_Fault_Message</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>subjectNameOrId</name>
+            <value>
+                <elementReference>$Record.OwnerId</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>chatterPost</nameSegment>
+        <offset>0</offset>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </actionCalls>
+    <actionCalls>
+        <description>Sends a Chatter notification to the Subscription owner if the automatic renewal Opportunity creation fails. Includes the system fault message for troubleshooting.</description>
+        <name>Chatter_Path_A_Error_Opp_Creation_Failure</name>
+        <label>Chatter: Path A Error - Opp Creation Failure</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <actionName>chatterPost</actionName>
+        <actionType>chatterPost</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>text</name>
+            <value>
+                <elementReference>Renewal_Fault_Message</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>subjectNameOrId</name>
+            <value>
+                <elementReference>$Record.OwnerId</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>chatterPost</nameSegment>
+        <offset>0</offset>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </actionCalls>
+    <actionCalls>
+        <description>Sends a Chatter notification to the Subscription owner if the automatic renewal Opportunity creation fails. Includes the system fault message for troubleshooting.</description>
+        <name>Chatter_Path_B_Error_Opp_Creation_Failure</name>
+        <label>Chatter: Path B Error - Opp Creation Failure</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <actionName>chatterPost</actionName>
+        <actionType>chatterPost</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>text</name>
+            <value>
+                <elementReference>Renewal_Fault_Message</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>subjectNameOrId</name>
+            <value>
+                <elementReference>$Record.OwnerId</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>chatterPost</nameSegment>
+        <offset>0</offset>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </actionCalls>
+    <apiVersion>65.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <decisions>
+        <description>this decision, checks if the opportunity, should be created fo upsell or avoiding churn?</description>
+        <name>churn_or_upsell</name>
+        <label>churn or upsell?</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>Create_Renewal_Opportunity_Path_A</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Upsell</defaultConnectorLabel>
+        <rules>
+            <name>Churn</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Usage_Utilization__c</leftValueReference>
+                <operator>LessThan</operator>
+                <rightValue>
+                    <numberValue>20.0</numberValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Create_Renewal_Opportunity_Path_A_2</targetReference>
+            </connector>
+            <label>Churn</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>This decision, decide, it the preious get records found a similar opportunity like this.</description>
+        <name>Does_Path_0_Open_Opp_Exist</name>
+        <label>Does Path 0 Open Opp Exist?</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>Create_Upsell_Opportunity_Path_0</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>No, Opportunity should be created.</defaultConnectorLabel>
+        <rules>
+            <name>Yes_Path_0_Already_Existst</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Open_Renewal_Opps_Path_0.Id</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <label>Yes Path 0, Already Exists</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>This decision, decide, it the preious get records found a similar opportunity like this.</description>
+        <name>Does_Path_A_Open_Opp_Exist</name>
+        <label>Does Path A Open Opp Exist?</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>churn_or_upsell</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>No Create a New one</defaultConnectorLabel>
+        <rules>
+            <name>Yes_Path_A_Already_Exists</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Open_Renewal_Opps_Path_A.Id</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <label>Yes Path A, Already Exists</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>This decision, decide, it the preious get records found a similar opportunity like this.</description>
+        <name>Does_Path_B_Open_Opp_Exist</name>
+        <label>Does Path B Open Opp Exist?</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>Create_Renewal_Opportunity_Path_B</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>No, Create a New one</defaultConnectorLabel>
+        <rules>
+            <name>Yes_Path_B_Already_Exists</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Open_Renewal_Opps_Path_B.Id</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <label>Yes Path B, Already Exists</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>This decision checks if an opportunity needs to be done before 30 days.</description>
+        <name>I_subscription_healthy</name>
+        <label>I subscription healthy?</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>Get_Open_Renewal_Opps_Path_A</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>No, opportunity should be created</defaultConnectorLabel>
+        <rules>
+            <name>Yes_is_healthy</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Usage_Utilization__c</leftValueReference>
+                <operator>GreaterThanOrEqualTo</operator>
+                <rightValue>
+                    <numberValue>20.0</numberValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Usage_Utilization__c</leftValueReference>
+                <operator>LessThan</operator>
+                <rightValue>
+                    <numberValue>80.0</numberValue>
+                </rightValue>
+            </conditions>
+            <label>Yes is healthy</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Is_path_0_active</name>
+        <label>Is path 0 active?</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnectorLabel>no</defaultConnectorLabel>
+        <rules>
+            <name>Yes_path_0_active</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Status__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>Expired</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Limit_Reached</targetReference>
+            </connector>
+            <label>Yes path 0 active</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>This decision check, if the subscription is still Active, because there are cases when they cancel subscriptions before the expiration.</description>
+        <name>Is_Subscription_Active_path_a</name>
+        <label>Is Subscription Active path a?</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnectorLabel>No</defaultConnectorLabel>
+        <rules>
+            <name>Yes_Path_1_Active</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Status__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>Expired</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>I_subscription_healthy</targetReference>
+            </connector>
+            <label>Yes, Active</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>This decision check, if the subscription is still Active, because there are cases when they cancel subscriptions before the expiration.</description>
+        <name>Is_Subscription_Active_path_b</name>
+        <label>Is Subscription Active path b?</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnectorLabel>No</defaultConnectorLabel>
+        <rules>
+            <name>Yes_Path_2_Active</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Status__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>Expired</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_Open_Renewal_Opps_Path_B</targetReference>
+            </connector>
+            <label>Yes, Active</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>This decision check if the subscriprion reached the limit of the product tier</description>
+        <name>Limit_Reached</name>
+        <label>Limit Reached?</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnectorLabel>No</defaultConnectorLabel>
+        <rules>
+            <name>Yes_is_over_a_100</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Usage_Utilization__c</leftValueReference>
+                <operator>GreaterThanOrEqualTo</operator>
+                <rightValue>
+                    <numberValue>1.0</numberValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_Open_Renewal_Opps_Path_0</targetReference>
+            </connector>
+            <label>Yes is over a 100%</label>
+        </rules>
+    </decisions>
+    <description>Automated Subscription Renewal Engine: This scheduled flow runs daily to identify subscriptions with an &apos;Expiring Soon&apos; status (30 days before End Date). It automatically generates a renewal Opportunity linked to the parent Account, enabling the Sales team to proactively manage contract extensions and minimize churn.</description>
+    <environments>Default</environments>
+    <formulas>
+        <description>This is the opportunity name for created Avoiding Churn opportunities.</description>
+        <name>AvoidChurn</name>
+        <dataType>String</dataType>
+        <expression>&quot;LOW USAGE!! - &quot; + {!$Record.Name}</expression>
+    </formulas>
+    <formulas>
+        <description>This is a variable for thr timing decision, helping to time the flow puntually.</description>
+        <name>Date_Variable_for_average_year</name>
+        <dataType>Date</dataType>
+        <expression>ADDMONTHS({!$Flow.CurrentDate},12)</expression>
+    </formulas>
+    <formulas>
+        <description>This is the variable helping in path B timing decision.</description>
+        <name>Date_Variable_for_path_B</name>
+        <dataType>Date</dataType>
+        <expression>ADDMONTHS({!$Flow.CurrentDate},1)</expression>
+    </formulas>
+    <formulas>
+        <description>this formula is the name for the opportunity created when the usage limit is reached,</description>
+        <name>Limit_reached_name</name>
+        <dataType>String</dataType>
+        <expression>&quot;USAGE LIMIT REACHED!! - &quot; + {!$Record.Name}</expression>
+    </formulas>
+    <formulas>
+        <description>This formula renew the subscription by 12 months if needed</description>
+        <name>NewEndDate</name>
+        <dataType>Date</dataType>
+        <expression>ADDMONTHS({!$Flow.CurrentDateTime},2)</expression>
+    </formulas>
+    <formulas>
+        <name>OpportunityName</name>
+        <dataType>String</dataType>
+        <expression>&quot;Renewal - &quot; + {!$Record.Name}</expression>
+    </formulas>
+    <formulas>
+        <description>This is the name for the created upsell opportunities.</description>
+        <name>UpsellOppurtunity</name>
+        <dataType>String</dataType>
+        <expression>&quot;HIGH USAGE - Upsell opportunity - &quot; + {!$Record.Name}</expression>
+    </formulas>
+    <interviewLabel>Subscription Renewal Flow {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Subscription Renewal Flow</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordCreates>
+        <description>Here we create the new upsell opportunities, that are in the Value propositions, sice we allready know these companies.</description>
+        <name>Create_Renewal_Opportunity_Path_A</name>
+        <label>Create Renewal Opportunity Path A</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <faultConnector>
+            <targetReference>Chatter_Path_A_Error_Opp_Creation_Failure</targetReference>
+        </faultConnector>
+        <inputAssignments>
+            <field>AccountId</field>
+            <value>
+                <elementReference>$Record.Account__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Amount</field>
+            <value>
+                <elementReference>$Record.Monthly_Amount__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>CloseDate</field>
+            <value>
+                <elementReference>Date_Variable_for_average_year</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Name</field>
+            <value>
+                <elementReference>UpsellOppurtunity</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>OwnerId</field>
+            <value>
+                <elementReference>$Record.OwnerId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>StageName</field>
+            <value>
+                <stringValue>Value Proposition</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Opportunity</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <description>Here we create the avoidin Churn opportunities, that are in the Value propositions, sice we allready know these companies.</description>
+        <name>Create_Renewal_Opportunity_Path_A_2</name>
+        <label>Create Renewal Opportunity Path A 2</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <faultConnector>
+            <targetReference>Chatter_Path_A_2_Error_Opp_Creation_Failure</targetReference>
+        </faultConnector>
+        <inputAssignments>
+            <field>AccountId</field>
+            <value>
+                <elementReference>$Record.Account__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Amount</field>
+            <value>
+                <elementReference>$Record.Monthly_Amount__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>CloseDate</field>
+            <value>
+                <elementReference>Date_Variable_for_average_year</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Name</field>
+            <value>
+                <elementReference>AvoidChurn</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>OwnerId</field>
+            <value>
+                <elementReference>$Record.OwnerId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>StageName</field>
+            <value>
+                <stringValue>Value Proposition</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Opportunity</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <description>Here we create the new opportunities, that are in the Value propositions, sice we allready know these companies.</description>
+        <name>Create_Renewal_Opportunity_Path_B</name>
+        <label>Create Renewal Opportunity Path B</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <faultConnector>
+            <targetReference>Chatter_Path_B_Error_Opp_Creation_Failure</targetReference>
+        </faultConnector>
+        <inputAssignments>
+            <field>AccountId</field>
+            <value>
+                <elementReference>$Record.Account__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Amount</field>
+            <value>
+                <elementReference>$Record.Monthly_Amount__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>CloseDate</field>
+            <value>
+                <elementReference>Date_Variable_for_average_year</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Name</field>
+            <value>
+                <elementReference>OpportunityName</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>OwnerId</field>
+            <value>
+                <elementReference>$Record.OwnerId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>StageName</field>
+            <value>
+                <stringValue>Value Proposition</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Opportunity</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <description>Here we create the new upsell opportunities because the subscription reached it&apos;s limit, that are in the Value propositions, sice we allready know these companies.</description>
+        <name>Create_Upsell_Opportunity_Path_0</name>
+        <label>Create Upsell Opportunity Path 0</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <faultConnector>
+            <targetReference>Chatter_Path_0_Error_Opp_Creation_Failure</targetReference>
+        </faultConnector>
+        <inputAssignments>
+            <field>AccountId</field>
+            <value>
+                <elementReference>$Record.Account__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Amount</field>
+            <value>
+                <elementReference>$Record.Monthly_Amount__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>CloseDate</field>
+            <value>
+                <elementReference>Date_Variable_for_average_year</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Name</field>
+            <value>
+                <elementReference>Limit_reached_name</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>OwnerId</field>
+            <value>
+                <elementReference>$Record.OwnerId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>StageName</field>
+            <value>
+                <stringValue>Value Proposition</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Opportunity</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordLookups>
+        <description>This checks the allready existing opportunities, to avoid duplications.</description>
+        <name>Get_Open_Renewal_Opps_Path_0</name>
+        <label>Get Open Renewal Opps Path 0</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Does_Path_0_Open_Opp_Exist</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>AccountId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Account__r.Id</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>IsClosed</field>
+            <operator>EqualTo</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Opportunity</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <description>This checks the allready existing opportunities, to avoid duplications.</description>
+        <name>Get_Open_Renewal_Opps_Path_A</name>
+        <label>Get Open Renewal Opps Path A</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Does_Path_A_Open_Opp_Exist</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>AccountId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Account__r.Id</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>IsClosed</field>
+            <operator>EqualTo</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Opportunity</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <description>This checks the allready existing opportunities, to avoid duplications.</description>
+        <name>Get_Open_Renewal_Opps_Path_B</name>
+        <label>Get Open Renewal Opps Path B</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Does_Path_B_Open_Opp_Exist</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>AccountId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Account__r.Id</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>IsClosed</field>
+            <operator>EqualTo</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Opportunity</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <start>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Is_path_0_active</targetReference>
+        </connector>
+        <object>Subscription__c</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <scheduledPaths>
+            <name>Path_A_Early_Warning</name>
+            <connector>
+                <targetReference>Is_Subscription_Active_path_a</targetReference>
+            </connector>
+            <label>Path A: &quot;Early Warning&quot;</label>
+            <offsetNumber>-90</offsetNumber>
+            <offsetUnit>Days</offsetUnit>
+            <recordField>End_Date__c</recordField>
+            <timeSource>RecordField</timeSource>
+        </scheduledPaths>
+        <scheduledPaths>
+            <name>Path_B_Standard_Renewal</name>
+            <connector>
+                <targetReference>Is_Subscription_Active_path_b</targetReference>
+            </connector>
+            <label>Path B: &quot;Standard Renewal&quot;</label>
+            <offsetNumber>-30</offsetNumber>
+            <offsetUnit>Days</offsetUnit>
+            <recordField>End_Date__c</recordField>
+            <timeSource>RecordField</timeSource>
+        </scheduledPaths>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+    <textTemplates>
+        <description>This is the text for the error message, when creation fails.</description>
+        <name>Renewal_Fault_Message</name>
+        <isViewedAsPlainText>false</isViewedAsPlainText>
+        <text>&lt;p&gt;An error occurred while creating the renewal Opportunity. Subscription ID: {!$Record.OwnerId} Error message: {!$Flow.FaultMessage}&lt;/p&gt;</text>
+    </textTemplates>
+</Flow>
