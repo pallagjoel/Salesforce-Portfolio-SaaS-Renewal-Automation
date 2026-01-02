@@ -17,7 +17,7 @@
         <inputParameters>
             <name>subjectNameOrId</name>
             <value>
-                <elementReference>$Record.Id</elementReference>
+                <elementReference>$Record.OwnerId</elementReference>
             </value>
         </inputParameters>
         <nameSegment>chatterPost</nameSegment>
@@ -41,7 +41,7 @@
         <inputParameters>
             <name>subjectNameOrId</name>
             <value>
-                <elementReference>$Record.Id</elementReference>
+                <elementReference>$Record.OwnerId</elementReference>
             </value>
         </inputParameters>
         <nameSegment>chatterPost</nameSegment>
@@ -65,7 +65,7 @@
         <inputParameters>
             <name>subjectNameOrId</name>
             <value>
-                <elementReference>$Record.Id</elementReference>
+                <elementReference>$Record.OwnerId</elementReference>
             </value>
         </inputParameters>
         <nameSegment>chatterPost</nameSegment>
@@ -89,7 +89,7 @@
         <inputParameters>
             <name>subjectNameOrId</name>
             <value>
-                <elementReference>$Record.Id</elementReference>
+                <elementReference>$Record.OwnerId</elementReference>
             </value>
         </inputParameters>
         <nameSegment>chatterPost</nameSegment>
@@ -135,7 +135,7 @@
         </defaultConnector>
         <defaultConnectorLabel>No, Opportunity should be created.</defaultConnectorLabel>
         <rules>
-            <name>Yes_Path_0_Already_Existst</name>
+            <name>Yes_Path_0_Already_Exists</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
                 <leftValueReference>Get_Open_Renewal_Opps_Path_0.Id</leftValueReference>
@@ -696,6 +696,6 @@
         <description>This is the text for the error message, when creation fails.</description>
         <name>Renewal_Fault_Message</name>
         <isViewedAsPlainText>false</isViewedAsPlainText>
-        <text>&lt;p&gt;An error occurred while creating the renewal Opportunity. Subscription ID: {!$Record.OwnerId} Error message: {!$Flow.FaultMessage}&lt;/p&gt;</text>
+        <text>&lt;p&gt;An error occurred while creating the renewal Opportunity. Subscription ID: {!$Record.Id} Error message: {!$Flow.FaultMessage}&lt;/p&gt;</text>
     </textTemplates>
 </Flow>
