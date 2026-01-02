@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <actionCalls>
-        <description>Sends a Chatter notification to the Subscription owner if the automatic renewal Opportunity creation fails. Includes the system fault message for troubleshooting.</description>
         <name>Chatter_Path_0_Error_Opp_Creation_Failure</name>
         <label>Chatter: Path 0 Error - Opp Creation Failure</label>
         <locationX>0</locationX>
@@ -18,7 +17,7 @@
         <inputParameters>
             <name>subjectNameOrId</name>
             <value>
-                <elementReference>$Record.OwnerId</elementReference>
+                <elementReference>$Record.Id</elementReference>
             </value>
         </inputParameters>
         <nameSegment>chatterPost</nameSegment>
@@ -26,7 +25,6 @@
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </actionCalls>
     <actionCalls>
-        <description>Sends a Chatter notification to the Subscription owner if the automatic renewal Opportunity creation fails. Includes the system fault message for troubleshooting.</description>
         <name>Chatter_Path_A_2_Error_Opp_Creation_Failure</name>
         <label>Chatter: Path A 2 Error - Opp Creation Failure</label>
         <locationX>0</locationX>
@@ -43,7 +41,7 @@
         <inputParameters>
             <name>subjectNameOrId</name>
             <value>
-                <elementReference>$Record.OwnerId</elementReference>
+                <elementReference>$Record.Id</elementReference>
             </value>
         </inputParameters>
         <nameSegment>chatterPost</nameSegment>
@@ -51,7 +49,6 @@
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </actionCalls>
     <actionCalls>
-        <description>Sends a Chatter notification to the Subscription owner if the automatic renewal Opportunity creation fails. Includes the system fault message for troubleshooting.</description>
         <name>Chatter_Path_A_Error_Opp_Creation_Failure</name>
         <label>Chatter: Path A Error - Opp Creation Failure</label>
         <locationX>0</locationX>
@@ -68,7 +65,7 @@
         <inputParameters>
             <name>subjectNameOrId</name>
             <value>
-                <elementReference>$Record.OwnerId</elementReference>
+                <elementReference>$Record.Id</elementReference>
             </value>
         </inputParameters>
         <nameSegment>chatterPost</nameSegment>
@@ -76,7 +73,6 @@
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </actionCalls>
     <actionCalls>
-        <description>Sends a Chatter notification to the Subscription owner if the automatic renewal Opportunity creation fails. Includes the system fault message for troubleshooting.</description>
         <name>Chatter_Path_B_Error_Opp_Creation_Failure</name>
         <label>Chatter: Path B Error - Opp Creation Failure</label>
         <locationX>0</locationX>
@@ -93,7 +89,7 @@
         <inputParameters>
             <name>subjectNameOrId</name>
             <value>
-                <elementReference>$Record.OwnerId</elementReference>
+                <elementReference>$Record.Id</elementReference>
             </value>
         </inputParameters>
         <nameSegment>chatterPost</nameSegment>
@@ -103,7 +99,7 @@
     <apiVersion>65.0</apiVersion>
     <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
     <decisions>
-        <description>this decision, checks if the opportunity, should be created fo upsell or avoiding churn?</description>
+        <description>this decision, checks if the opportunity, should be created for upsell or avoiding churn?</description>
         <name>churn_or_upsell</name>
         <label>churn or upsell?</label>
         <locationX>0</locationX>
@@ -129,7 +125,7 @@
         </rules>
     </decisions>
     <decisions>
-        <description>This decision, decide, it the preious get records found a similar opportunity like this.</description>
+        <description>This decision, decides if the previous get records found a similar opportunity like this.</description>
         <name>Does_Path_0_Open_Opp_Exist</name>
         <label>Does Path 0 Open Opp Exist?</label>
         <locationX>0</locationX>
@@ -152,7 +148,7 @@
         </rules>
     </decisions>
     <decisions>
-        <description>This decision, decide, it the preious get records found a similar opportunity like this.</description>
+        <description>This decision, decides if the previous get records found a similar opportunity like this.</description>
         <name>Does_Path_A_Open_Opp_Exist</name>
         <label>Does Path A Open Opp Exist?</label>
         <locationX>0</locationX>
@@ -175,7 +171,7 @@
         </rules>
     </decisions>
     <decisions>
-        <description>This decision, decide, it the preious get records found a similar opportunity like this.</description>
+        <description>This decision, decides if the previous get records found a similar opportunity like this.</description>
         <name>Does_Path_B_Open_Opp_Exist</name>
         <label>Does Path B Open Opp Exist?</label>
         <locationX>0</locationX>
@@ -273,7 +269,7 @@
         </rules>
     </decisions>
     <decisions>
-        <description>This decision check, if the subscription is still Active, because there are cases when they cancel subscriptions before the expiration.</description>
+        <description>This decision checks, if the subscription is still Active, because there are cases when they cancel subscriptions before the expiration.</description>
         <name>Is_Subscription_Active_path_b</name>
         <label>Is Subscription Active path b?</label>
         <locationX>0</locationX>
@@ -312,6 +308,13 @@
                     <numberValue>1.0</numberValue>
                 </rightValue>
             </conditions>
+            <conditions>
+                <leftValueReference>$Record__Prior.Usage_Utilization__c</leftValueReference>
+                <operator>LessThan</operator>
+                <rightValue>
+                    <numberValue>1.0</numberValue>
+                </rightValue>
+            </conditions>
             <connector>
                 <targetReference>Get_Open_Renewal_Opps_Path_0</targetReference>
             </connector>
@@ -333,22 +336,10 @@
         <expression>ADDMONTHS({!$Flow.CurrentDate},12)</expression>
     </formulas>
     <formulas>
-        <description>This is the variable helping in path B timing decision.</description>
-        <name>Date_Variable_for_path_B</name>
-        <dataType>Date</dataType>
-        <expression>ADDMONTHS({!$Flow.CurrentDate},1)</expression>
-    </formulas>
-    <formulas>
         <description>this formula is the name for the opportunity created when the usage limit is reached,</description>
         <name>Limit_reached_name</name>
         <dataType>String</dataType>
         <expression>&quot;USAGE LIMIT REACHED!! - &quot; + {!$Record.Name}</expression>
-    </formulas>
-    <formulas>
-        <description>This formula renew the subscription by 12 months if needed</description>
-        <name>NewEndDate</name>
-        <dataType>Date</dataType>
-        <expression>ADDMONTHS({!$Flow.CurrentDateTime},2)</expression>
     </formulas>
     <formulas>
         <name>OpportunityName</name>
@@ -418,7 +409,7 @@
         <inputAssignments>
             <field>OwnerId</field>
             <value>
-                <elementReference>$Record.OwnerId</elementReference>
+                <elementReference>$Record.Account__r.OwnerId</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -431,7 +422,7 @@
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordCreates>
     <recordCreates>
-        <description>Here we create the avoidin Churn opportunities, that are in the Value propositions, sice we allready know these companies.</description>
+        <description>Here we create the avoiding Churn opportunities, that are in the Value propositions, sice we allready know these companies.</description>
         <name>Create_Renewal_Opportunity_Path_A_2</name>
         <label>Create Renewal Opportunity Path A 2</label>
         <locationX>0</locationX>
@@ -466,7 +457,7 @@
         <inputAssignments>
             <field>OwnerId</field>
             <value>
-                <elementReference>$Record.OwnerId</elementReference>
+                <elementReference>$Record.Account__r.OwnerId</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -514,7 +505,7 @@
         <inputAssignments>
             <field>OwnerId</field>
             <value>
-                <elementReference>$Record.OwnerId</elementReference>
+                <elementReference>$Record.Account__r.OwnerId</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -562,7 +553,7 @@
         <inputAssignments>
             <field>OwnerId</field>
             <value>
-                <elementReference>$Record.OwnerId</elementReference>
+                <elementReference>$Record.Account__r.OwnerId</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -575,7 +566,7 @@
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordCreates>
     <recordLookups>
-        <description>This checks the allready existing opportunities, to avoid duplications.</description>
+        <description>This checks the already existing opportunities, to avoid duplications.</description>
         <name>Get_Open_Renewal_Opps_Path_0</name>
         <label>Get Open Renewal Opps Path 0</label>
         <locationX>0</locationX>
@@ -599,12 +590,19 @@
                 <booleanValue>false</booleanValue>
             </value>
         </filters>
+        <filters>
+            <field>Name</field>
+            <operator>Contains</operator>
+            <value>
+                <stringValue>LIMIT</stringValue>
+            </value>
+        </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
         <object>Opportunity</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordLookups>
-        <description>This checks the allready existing opportunities, to avoid duplications.</description>
+        <description>This checks the already existing opportunities, to avoid duplications.</description>
         <name>Get_Open_Renewal_Opps_Path_A</name>
         <label>Get Open Renewal Opps Path A</label>
         <locationX>0</locationX>
@@ -633,7 +631,7 @@
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordLookups>
-        <description>This checks the allready existing opportunities, to avoid duplications.</description>
+        <description>This checks the already existing opportunities, to avoid duplications.</description>
         <name>Get_Open_Renewal_Opps_Path_B</name>
         <label>Get Open Renewal Opps Path B</label>
         <locationX>0</locationX>
